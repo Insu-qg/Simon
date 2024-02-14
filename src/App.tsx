@@ -1,37 +1,58 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const colors = ['red', 'blue', 'green', 'yellow']
 
+const getRandomColor = () => {
+  const randomIndex = Math.floor(Math.random() * colors.length)
+  return colors[randomIndex]
+}
+
 function App() {
-  const [sequence] = useState(["red", "blue", "red"]);
+  const [sequence, setSequence] = useState(["red", "blue", "red"]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlayerTurn, setIsplayerTurn] = useState(false);
   
   useEffect(() => {
-    if (sequence.length > 0 && !isPlayerTurn) {
-      setTimeout(() => {
-        setCurrentIndex(currentIndex + 1);
-      }, 1000);
+    if(!isPlayerTurn){
+      if (currentIndex < sequence.length) {
+        setTimeout(() => {
+          setCurrentIndex(currentIndex + 1);
+        }, 1000);
+      }
+      else {
+        setIsplayerTurn(true)
+        setCurrentIndex(0)
+        console.log("PLAYER TURN")
+      }
     }
-    if( currentIndex >= sequence.length && !isPlayerTurn) {
-      setIsplayerTurn(true)
-      setCurrentIndex(0)
-      console.log("PLAYER TURN")
-    }
-  }, [currentIndex]);
+  }, [currentIndex, sequence, isPlayerTurn]);
 
-  const handleColorClick = useCallback((color: string) => {
-    if (isPlayerTurn && !(currentIndex >= sequence.length)) {
-        if(sequence[currentIndex] == color) {
-          console.log("COULEUR CORRECT : " + color);
+  console.log('state', {currentIndex, sequence, isPlayerTurn});
+
+  const handleColorClick = (color: string) => {
+    if (isPlayerTurn) {
+      if(sequence[currentIndex] == color) {
+        console.log("COULEUR CORRECT : " + color);
+        if(currentIndex < sequence.length - 1){
           setCurrentIndex(currentIndex + 1)
-        }else{
-          console.log("MAUVAISE COULEUR: " + color);
+        }
+        else {
+          setCurrentIndex(0)
+          setSequence([...sequence, getRandomColor()])
           setIsplayerTurn(false)
         }
+      }else{
+        console.log("MAUVAISE COULEUR: " + color);
+        setIsplayerTurn(false)
+        setSequence(["red", "blue", "red"])
+        alert("GAME OVER !");
       }
-    }, [currentIndex])
+    }
+  }
+
+
+
 
   return (
     <>
