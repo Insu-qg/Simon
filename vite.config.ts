@@ -10,7 +10,7 @@ export default defineConfig({
 
         theme_color: "#f69435",
         background_color: "#7df635",
-        display: "browser",
+        display: "standalone",
         scope: "/",
         start_url: "/",
         name: "Simon",
