@@ -1,34 +1,52 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+const colors = ['red', 'blue', 'green', 'yellow']
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [sequence, setSequences] = useState(["red", "blue", "red"]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userInput, setUserInput] = useState([]);
+  const [isPlayerTurn, setIsplayerTurn] = useState(false);
+  
+  // useEffect(() => {
+  //   if (sequence.length > 0 && isPlayerTurn) {
+  //     setTimeout(() => {
+  //       setCurrentIndex();
+  //     }, 1000);
+  //   }
+  // }, [sequence, isPlayerTurn]);
+
+  // const playSequence = () => {
+  //   let i = 0;
+  //   const interval = setInterval(() => {
+  //     highlightColor(sequence[i]);
+  //     i++;
+  //     if (i >= sequence.length) {
+  //       clearInterval(interval);
+  //       setIsplayerTurn(false);
+  //     }
+  //   }, 1000);
+  // };
+
+  // const highlightColor = (color: string) => {
+  //   console.log(`Highlight: ${color}`);
+  // };
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='button-container'>
+          {colors.map((color) => (
+            <button
+              className="color-button"
+              key={color}
+              style={{ backgroundColor: (!isPlayerTurn && sequence[currentIndex] === color) ? "purple" : color}}
+            />
+          ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      
   )
 }
 
