@@ -34,6 +34,8 @@ function App() {
     }, [currentIndex])
 
   return (
+    <>
+          <p>SIIIMOOOON</p>
       <div className='button-container'>
           {colors.map((color) => (
             <button
@@ -45,6 +47,8 @@ function App() {
           ))}
       </div>
       
+    </>
+
   )
 }
 
