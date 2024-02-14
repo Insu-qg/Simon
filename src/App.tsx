@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 const colors = ['red', 'blue', 'green', 'yellow']
 
 function App() {
-  const [sequence, setSequences] = useState(["red", "blue", "red"]);
+  const [sequence] = useState(["red", "blue", "red"]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlayerTurn, setIsplayerTurn] = useState(false);
   
