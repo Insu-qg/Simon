@@ -13,7 +13,19 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlayerTurn, setIsplayerTurn] = useState(false);
   
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/');
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
   useEffect(() => {
+
+    fetchData()
     if(!isPlayerTurn){
       if (currentIndex < sequence.length) {
         setTimeout(() => {
